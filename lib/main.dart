@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:greate_places/providers/greate_places.dart';
 import 'package:greate_places/screens/place_form_screen.dart';
 import 'package:greate_places/screens/places_list_screen.dart';
 import 'package:greate_places/utils/app_routes.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,18 +16,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData();
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.indigo,
-          secondary: Colors.amber,
+    return ChangeNotifierProvider(
+      create: (context) => GreatPlaces(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: theme.copyWith(
+          colorScheme: theme.colorScheme.copyWith(
+            primary: Colors.indigo,
+            secondary: Colors.amber,
+          ),
         ),
+        home: const PlacesListScreen(),
+        routes: {
+          AppRoutes.PLACE_FORM: (context) => PlaceFormScreen(),
+        },
       ),
-      home: const PlacesListScreen(),
-      routes: {
-        AppRoutes.PLACE_FORM: (context) => PlaceFormScreen(),
-      },
     );
   }
 }
