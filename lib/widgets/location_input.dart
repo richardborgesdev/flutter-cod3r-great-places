@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greate_places/utils/location_util.dart';
 import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget {
@@ -12,7 +13,16 @@ class _LocationInputState extends State<LocationInput> {
   String _previewImageUrl = '';
 
   Future<void> _getCurrentUserLocation() async {
-    final locationData = Location().getLocation();
+    final locationData = await Location().getLocation();
+
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+      latitude: locationData.latitude,
+      longitude: locationData.longitude,
+    );
+
+    setState(() {
+      _previewImageUrl = staticMapImageUrl;
+    });
   }
 
   @override
