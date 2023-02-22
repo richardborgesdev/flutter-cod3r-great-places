@@ -4,12 +4,14 @@ import 'package:greate_places/models/places.dart';
 
 class MapScreen extends StatefulWidget {
   final PlaceLocation initialLocation;
+  final bool isReadOnly;
 
   const MapScreen({
     this.initialLocation = const PlaceLocation(
       latitude: 37.419857,
       longitude: -122.078827,
     ),
+    this.isReadOnly = false,
   });
 
   @override
@@ -17,6 +19,13 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  LatLng _pickedPostion;
+  void _selectPosition(LatLng position) {
+    setState(() {
+      _pickedPostion = position;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +40,15 @@ class _MapScreenState extends State<MapScreen> {
           ),
           zoom: 13,
         ),
+        onTap: widget.isReadOnly ? null : _selectPosition,
+        markers: _pickedPostion == null
+            ? null
+            : {
+                Marker(
+                  markerId: MarkerId('p1'),
+                  position: _pickedPostion,
+                ),
+              },
       ),
     );
   }
