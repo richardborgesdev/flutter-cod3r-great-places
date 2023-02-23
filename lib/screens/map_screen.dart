@@ -30,7 +30,18 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Selecione'),
+        title: const Text('Selecione'),
+        actions: [
+          if (!widget.isReadOnly)
+            IconButton(
+              onPressed: _pickedPostion == null
+                  ? null
+                  : () {
+                      Navigator.of(context).pop(_pickedPostion);
+                    },
+              icon: const Icon(Icons.check),
+            )
+        ],
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
