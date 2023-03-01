@@ -20,11 +20,13 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   LatLng _pickedPosition;
 
   void _selectPosition(LatLng position) {
-    _pickedPosition = position;
+    setState(() {
+      _pickedPosition = position;
+    });
   }
 
   bool _isValidForm() {
-    return !_titleController.text.isEmpty &&
+    return _titleController.text.isNotEmpty &&
         _pickedImage.path != null &&
         _pickedPosition != null;
   }
@@ -46,7 +48,9 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   void _selectImage(File pickedImage) {
-    _pickedImage = pickedImage;
+    setState(() {
+      _pickedImage = pickedImage;
+    });
   }
 
   @override

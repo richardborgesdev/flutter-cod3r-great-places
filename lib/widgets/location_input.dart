@@ -39,6 +39,15 @@ class _LocationInputState extends State<LocationInput> {
 
     if (selectedPosition == null) return;
 
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+      latitude: selectedPosition.latitude,
+      longitude: selectedPosition.longitude,
+    );
+
+    setState(() {
+      _previewImageUrl = staticMapImageUrl;
+    });
+
     widget.onSelectPosition(selectedPosition);
   }
 
