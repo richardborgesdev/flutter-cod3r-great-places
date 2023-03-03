@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greate_places/screens/map_screen.dart';
 
 import '../models/places.dart';
 
@@ -33,6 +34,21 @@ class PlaceDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MapScreen(
+                  isReadOnly: true,
+                  initialLocation: place.location,
+                ),
+                fullscreenDialog: true,
+              ));
+            },
+            icon: const Icon(Icons.map),
+            label: const Text(
+              'Ver no mapa',
+            ),
+          ),
         ],
       ),
     );
